@@ -140,13 +140,13 @@ class MarkersState {
   Future<void> removeAllNamedMarkers() async {
     _namedMarkers.clear();
     _buildMarkers();
-    notify(
-        "updateMarkers", null, removeAllNamedMarkers, MapControllerChangeType.markers);
+    notify("updateMarkers", null, removeAllNamedMarkers,
+        MapControllerChangeType.markers);
   }
 
   /// Export all markers to a [GeoJsonFeature] with geometry
   /// type [GeoJsonMultiPoint]
-  GeoJsonFeature toGeoJsonFeatures() {
+  GeoJsonFeature<GeoJsonMultiPoint> toGeoJsonFeatures() {
     if (namedMarkers.isEmpty) {
       return null;
     }
@@ -172,7 +172,8 @@ class MarkersState {
   }
 
   /// Fit a marker on map
-  void fitOne(String name, {FitBoundsOptions options = const FitBoundsOptions()}) {
+  void fitOne(String name,
+      {FitBoundsOptions options = const FitBoundsOptions()}) {
     final bounds = LatLngBounds()..extend(namedMarkers[name].point);
     mapController.fitBounds(bounds, options: options);
   }

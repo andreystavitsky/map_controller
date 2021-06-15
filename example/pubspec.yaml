@@ -27,6 +27,12 @@ dependencies:
     path: ../
   provider: ^4.3.3
 
+dependency_overrides:
+  geopoint:
+    git:
+      url: https://github.com/it-sam/geopoint.git
+      commit: 7a28e2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

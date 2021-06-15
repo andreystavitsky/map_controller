@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_controller/map_controller.dart';
 
 class Place {
@@ -97,7 +97,7 @@ class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
       ),
       floatingActionButton: ready
           ? FloatingActionButton(
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
               onPressed: () => addMarker(context),
             )
           : const Text(""),

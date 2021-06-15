@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geojson/geojson.dart';
 import 'package:geopoint/geopoint.dart';
-import 'package:latlong/latlong.dart';
-import 'package:map_controller/src/exceptions.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'exceptions.dart';
 import 'models.dart';
 import 'state/lines.dart';
 import 'state/map.dart';
@@ -104,7 +104,7 @@ class StatefulMapController {
 
   /// The markers present on the map
   List<Marker> get markers {
-    List<Marker> markers = [];
+    var markers = <Marker>[];
     markers
       ..addAll(_markersState.markers)
       ..addAll(_statefulMarkersState.markers);
@@ -247,7 +247,7 @@ class StatefulMapController {
     print("From geojson $data");
 
     final geojson = GeoJson();
-    geojson.processedFeatures.listen((GeoJsonFeature feature) {
+    geojson.processedFeatures.listen((GeoJsonFeature<dynamic> feature) {
       switch (feature.type) {
         case GeoJsonFeatureType.point:
           final point = feature.geometry as GeoJsonPoint;
@@ -313,7 +313,7 @@ class StatefulMapController {
   /// Export all the map assets to a [GeoJsonFeatureCollection]
   GeoJsonFeatureCollection toGeoJsonFeatures() {
     final featureCollection = GeoJsonFeatureCollection()
-      ..collection = <GeoJsonFeature>[];
+      ..collection = <GeoJsonFeature<dynamic>>[];
     final markersFeature = _markersState.toGeoJsonFeatures();
     final linesFeature = _linesState.toGeoJsonFeatures();
     final polygonsFeature = _polygonsState.toGeoJsonFeatures();

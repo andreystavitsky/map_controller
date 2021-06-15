@@ -10,12 +10,22 @@ dependencies:
   flutter:
     sdk: flutter
   extra_pedantic: ^1.2.0
-  flutter_map: ^0.11.0
-  geojson: ^0.10.0
-  geopoint: ^0.8.0
-  latlong: ^0.6.1
+  flutter_map: ^0.13.1
+  geojson:
+    git:
+      url: https://github.com/it-sam/geojson.git
+  geopoint: 
+    git:
+      url: https://github.com/it-sam/geopoint.git
+  latlong2: ^0.8.0
   pedantic: ^1.9.2
-  rxdart: ^0.25.0
+  rxdart: ^0.27.1
+
+dependency_overrides:
+  geopoint:
+    git:
+      url: https://github.com/it-sam/geopoint.git
+      commit: 7a28e2
 
 dev_dependencies:
   flutter_test:
