@@ -7,9 +7,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_controller/map_controller.dart';
 
 class _GeoJsonPageState extends State<GeoJsonPage> {
-  MapController mapController;
-  StatefulMapController statefulMapController;
-  StreamSubscription<StatefulMapControllerStateChange> sub;
+  MapController? mapController;
+  late StatefulMapController statefulMapController;
+  late StreamSubscription<StatefulMapControllerStateChange> sub;
 
   Future<void> loadData() async {
     // data is from http://geojson.xyz/
@@ -22,7 +22,7 @@ class _GeoJsonPageState extends State<GeoJsonPage> {
   @override
   void initState() {
     mapController = MapController();
-    statefulMapController = StatefulMapController(mapController: mapController);
+    statefulMapController = StatefulMapController(mapController: mapController!);
     statefulMapController.onReady.then((_) => loadData());
     sub = statefulMapController.changeFeed.listen((change) => setState(() {}));
     super.initState();
@@ -39,7 +39,7 @@ class _GeoJsonPageState extends State<GeoJsonPage> {
           zoom: 2.0,
         ),
         layers: [
-          statefulMapController.tileLayer,
+          statefulMapController.tileLayer!,
           MarkerLayerOptions(
             markers: statefulMapController.markers,
           ),

@@ -6,16 +6,16 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_controller/map_controller.dart';
 
 class _TileLayerPageState extends State<TileLayerPage> {
-  MapController mapController;
-  StatefulMapController statefulMapController;
-  StreamSubscription<StatefulMapControllerStateChange> sub;
+  MapController? mapController;
+  late StatefulMapController statefulMapController;
+  late StreamSubscription<StatefulMapControllerStateChange> sub;
 
   bool ready = false;
 
   @override
   void initState() {
     mapController = MapController();
-    statefulMapController = StatefulMapController(mapController: mapController);
+    statefulMapController = StatefulMapController(mapController: mapController!);
     statefulMapController.onReady.then((_) => setState(() => ready = true));
     sub = statefulMapController.changeFeed.listen((change) => setState(() {}));
     super.initState();
@@ -30,7 +30,7 @@ class _TileLayerPageState extends State<TileLayerPage> {
           mapController: mapController,
           options: MapOptions(center: LatLng(48.853831, 2.348722), zoom: 11.0),
           layers: [
-            statefulMapController.tileLayer,
+            statefulMapController.tileLayer!,
             MarkerLayerOptions(markers: statefulMapController.markers),
           ],
         ),

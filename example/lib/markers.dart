@@ -13,9 +13,9 @@ class Place {
 }
 
 class _MarkersPageState extends State<MarkersPage> {
-  MapController mapController;
-  StatefulMapController statefulMapController;
-  StreamSubscription<StatefulMapControllerStateChange> sub;
+  MapController? mapController;
+  late StatefulMapController statefulMapController;
+  late StreamSubscription<StatefulMapControllerStateChange> sub;
 
   final List<Place> places = [
     Place("Notre-Dame", LatLng(48.853831, 2.348722)),
@@ -48,7 +48,7 @@ class _MarkersPageState extends State<MarkersPage> {
   @override
   void initState() {
     mapController = MapController();
-    statefulMapController = StatefulMapController(mapController: mapController);
+    statefulMapController = StatefulMapController(mapController: mapController!);
     statefulMapController.onReady.then((_) => setState(() => ready = true));
     sub = statefulMapController.changeFeed.listen((change) => setState(() {}));
     super.initState();
@@ -65,7 +65,7 @@ class _MarkersPageState extends State<MarkersPage> {
             zoom: 11.0,
           ),
           layers: [
-            statefulMapController.tileLayer,
+            statefulMapController.tileLayer!,
             MarkerLayerOptions(
               markers: statefulMapController.markers,
             ),

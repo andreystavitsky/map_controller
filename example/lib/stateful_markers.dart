@@ -13,9 +13,9 @@ class Place {
 }
 
 class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
-  MapController mapController;
-  StatefulMapController statefulMapController;
-  StreamSubscription<StatefulMapControllerStateChange> sub;
+  MapController? mapController;
+  late StatefulMapController statefulMapController;
+  late StreamSubscription<StatefulMapControllerStateChange> sub;
 
   final List<Place> places = [
     Place("Notre-Dame", LatLng(48.853831, 2.348722)),
@@ -40,7 +40,7 @@ class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
                 width: 150.0,
                 state: <String, dynamic>{"showText": false},
                 point: place.point,
-                builder: (BuildContext context, Map<String, dynamic> state) {
+                builder: (BuildContext context, Map<String?, dynamic> state) {
                   Widget w;
                   final markerIcon = IconButton(
                       icon: const Icon(Icons.location_on),
@@ -71,7 +71,7 @@ class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
   @override
   void initState() {
     mapController = MapController();
-    statefulMapController = StatefulMapController(mapController: mapController);
+    statefulMapController = StatefulMapController(mapController: mapController!);
     statefulMapController.onReady.then((_) => setState(() => ready = true));
     sub = statefulMapController.changeFeed.listen((change) => setState(() {}));
     super.initState();
@@ -88,7 +88,7 @@ class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
             zoom: 11.0,
           ),
           layers: [
-            statefulMapController.tileLayer,
+            statefulMapController.tileLayer!,
             MarkerLayerOptions(
               markers: statefulMapController.markers,
             ),
